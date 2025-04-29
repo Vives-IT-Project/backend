@@ -1,0 +1,242 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Actor {
+  id             String         @id
+  idOrganization String
+  name           String
+  description    String?
+  type           Int
+  Organization   Organization   @relation(fields: [idOrganization], references: [id])
+  BusinessCase   BusinessCase[] @relation("BusinessCaseActors")
+}
+
+model Allocation {
+  id      String    @id
+  amount  Float
+  start   DateTime
+  end     DateTime?
+  Benefit Benefit[]
+  Cost    Cost[]
+}
+
+model Benefit {
+  id              String       @id
+  idBusinessCase  String
+  idAllocation    String
+  description     String
+  estimatedActual Boolean
+  type            String
+  amount          Float
+  Allocation      Allocation   @relation(fields: [idAllocation], references: [id])
+  BusinessCase    BusinessCase @relation(fields: [idBusinessCase], references: [id])
+}
+
+model BusinessCase {
+  id                   String                 @id
+  idOrganization       String
+  createdBy            String
+  idTemplate           String
+  idProject            String
+  name                 String
+  description          String?
+  status               Int
+  version              Int
+  isTemplate           Boolean
+  Benefit              Benefit[]
+  User                 User                   @relation(fields: [createdBy], references: [id])
+  Organization         Organization           @relation(fields: [idOrganization], references: [id])
+  Project              Project                @relation(fields: [idProject], references: [id])
+  BusinessCaseFeedback BusinessCaseFeedback[]
+  Cost                 Cost[]
+  Milestone            Milestone[]
+  Risk                 Risk[]
+  Actor                Actor[]                @relation("BusinessCaseActors")
+  CostCenter           CostCenter[]
+  Domain               Domain[]
+  EvaluationTopic      EvaluationTopic[]
+  Goal                 Goal[]
+  KPIS                 KPIS[]
+  Objective            Objective[]
+}
+
+model BusinessCaseFeedback {
+  id               String         @id
+  givenBy          String
+  idBusinessCase   String
+  idFeedbackTarget String
+  bcVersion        Int
+  grade            Int
+  feedback         String
+  User             User           @relation(fields: [givenBy], references: [id])
+  BusinessCase     BusinessCase   @relation(fields: [idBusinessCase], references: [id])
+  FeedbackTarget   FeedbackTarget @relation(fields: [idFeedbackTarget], references: [id])
+}
+
+model Cost {
+  id               String         @id
+  idCostAllocation String
+  idBusinessCase   String
+  idAllocation     String
+  description      String
+  estimatedActual  Boolean
+  type             String
+  amount           Float
+  period           String
+  Allocation       Allocation     @relation(fields: [idAllocation], references: [id])
+  BusinessCase     BusinessCase   @relation(fields: [idBusinessCase], references: [id])
+  CostAllocation   CostAllocation @relation(fields: [idCostAllocation], references: [id])
+}
+
+model CostAllocation {
+  id          String @id
+  description String @unique
+  Cost        Cost[]
+}
+
+model CostCenter {
+  id             String         @id
+  idOrganization String
+  name           String
+  Organization   Organization   @relation(fields: [idOrganization], references: [id])
+  BusinessCase   BusinessCase[]
+}
+
+model Department {
+  id             String       @id
+  name           String
+  idOrganization String
+  Organization   Organization @relation(fields: [idOrganization], references: [id])
+}
+
+model Domain {
+  id             String         @id
+  idOrganization String
+  name           String
+  Organization   Organization   @relation(fields: [idOrganization], references: [id])
+  BusinessCase   BusinessCase[]
+}
+
+model EvaluationTopic {
+  id             String         @id
+  idOrganization String
+  name           String
+  description    String
+  Organization   Organization   @relation(fields: [idOrganization], references: [id])
+  BusinessCase   BusinessCase[]
+}
+
+model FeedbackTarget {
+  id                   String                 @id
+  fieldName            String                 @unique
+  BusinessCaseFeedback BusinessCaseFeedback[]
+}
+
+model Goal {
+  id             String         @id
+  name           String
+  idOrganization String
+  Organization   Organization   @relation(fields: [idOrganization], references: [id])
+  BusinessCase   BusinessCase[]
+}
+
+model KPIS {
+  id             String         @id
+  idOrganization String
+  name           String
+  description    String?
+  target         Float
+  measureUnit    String
+  Organization   Organization   @relation(fields: [idOrganization], references: [id])
+  BusinessCase   BusinessCase[]
+}
+
+model Milestone {
+  id             String       @id
+  idBusinessCase String
+  name           String
+  description    String?
+  limitDate      DateTime
+  status         Int
+  concludedAt    DateTime?
+  priority       Int
+  BusinessCase   BusinessCase @relation(fields: [idBusinessCase], references: [id])
+}
+
+model Objective {
+  id             String         @id
+  idOrganization String
+  description    String
+  Organization   Organization   @relation(fields: [idOrganization], references: [id])
+  BusinessCase   BusinessCase[]
+}
+
+model Organization {
+  id              String            @id
+  name            String
+  Actor           Actor[]
+  BusinessCase    BusinessCase[]
+  CostCenter      CostCenter[]
+  Department      Department[]
+  Domain          Domain[]
+  EvaluationTopic EvaluationTopic[]
+  Goal            Goal[]
+  KPIS            KPIS[]
+  Objective       Objective[]
+  User            User[]
+}
+
+model Portfolio {
+  id      String    @id
+  name    String
+  Project Project[]
+}
+
+model Project {
+  id           String         @id
+  idPortfolio  String
+  BusinessCase BusinessCase[]
+  Portfolio    Portfolio      @relation(fields: [idPortfolio], references: [id])
+}
+
+model Risk {
+  id                 String       @id
+  idBusinessCase     String
+  description        String
+  impactLevel        Int
+  probability        Float
+  mitigationStrategy String
+  BusinessCase       BusinessCase @relation(fields: [idBusinessCase], references: [id])
+}
+
+model Role {
+  id   String @id
+  name String @unique
+  User User[]
+}
+
+model User {
+  id                   String                 @id
+  idRole               String
+  idOrganization       String?
+  name                 String                 @unique
+  email                String                 @unique
+  password             String
+  isActive             Boolean
+  BusinessCase         BusinessCase[]
+  BusinessCaseFeedback BusinessCaseFeedback[]
+  Organization         Organization?          @relation(fields: [idOrganization], references: [id])
+  Role                 Role                   @relation(fields: [idRole], references: [id])
+}
+
+enum CostType {
+  OPEX
+  CAPEX
+}

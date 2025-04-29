@@ -12,6 +12,9 @@ export class UserService {
   }
 
   async createUser(data: any) {
+    if (await this.userRepository.findByEmail(data.email)) {
+      throw new Error("User already exists");
+    }
     return this.userRepository.create(data);
   }
 

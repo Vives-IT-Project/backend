@@ -27,8 +27,21 @@ export class UserController {
   };
 
   createUser = async (req: Request, res: Response) => {
-    const newUser = await this.userService.createUser(req.body);
-    res.status(201).json(newUser);
+    try {
+      const { name, email, password } = req.body;
+      if (!name || !email || !password) {
+        res.status(400).json({ message: "Missing required fields" });
+        return;
+      }
+      const newUser = await this.userService.createUser({
+        name,
+        email,
+        password,
+      });
+      res.status(201).json(newUser);
+    } catch (error) {
+      res.status(400).json({ message: "Bad request" });
+    }
   };
 
   updateUser = async (req: Request, res: Response) => {

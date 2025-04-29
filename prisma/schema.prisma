@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Actor {
-  id             String         @id
+  id             String         @id @default(uuid())
   idOrganization String
   name           String
   description    String?
@@ -18,7 +18,7 @@ model Actor {
 }
 
 model Allocation {
-  id      String    @id
+  id      String    @id @default(uuid())
   amount  Float
   start   DateTime
   end     DateTime?
@@ -27,7 +27,7 @@ model Allocation {
 }
 
 model Benefit {
-  id              String       @id
+  id              String       @id @default(uuid())
   idBusinessCase  String
   idAllocation    String
   description     String
@@ -39,7 +39,7 @@ model Benefit {
 }
 
 model BusinessCase {
-  id                   String                 @id
+  id                   String                 @id @default(uuid())
   idOrganization       String
   createdBy            String
   idTemplate           String
@@ -67,7 +67,7 @@ model BusinessCase {
 }
 
 model BusinessCaseFeedback {
-  id               String         @id
+  id               String         @id @default(uuid())
   givenBy          String
   idBusinessCase   String
   idFeedbackTarget String
@@ -80,7 +80,7 @@ model BusinessCaseFeedback {
 }
 
 model Cost {
-  id               String         @id
+  id               String         @id @default(uuid())
   idCostAllocation String
   idBusinessCase   String
   idAllocation     String
@@ -95,13 +95,13 @@ model Cost {
 }
 
 model CostAllocation {
-  id          String @id
+  id          String @id @default(uuid())
   description String @unique
   Cost        Cost[]
 }
 
 model CostCenter {
-  id             String         @id
+  id             String         @id @default(uuid())
   idOrganization String
   name           String
   Organization   Organization   @relation(fields: [idOrganization], references: [id])
@@ -109,14 +109,14 @@ model CostCenter {
 }
 
 model Department {
-  id             String       @id
+  id             String       @id @default(uuid())
   name           String
   idOrganization String
   Organization   Organization @relation(fields: [idOrganization], references: [id])
 }
 
 model Domain {
-  id             String         @id
+  id             String         @id @default(uuid())
   idOrganization String
   name           String
   Organization   Organization   @relation(fields: [idOrganization], references: [id])
@@ -124,7 +124,7 @@ model Domain {
 }
 
 model EvaluationTopic {
-  id             String         @id
+  id             String         @id @default(uuid())
   idOrganization String
   name           String
   description    String
@@ -133,13 +133,13 @@ model EvaluationTopic {
 }
 
 model FeedbackTarget {
-  id                   String                 @id
+  id                   String                 @id @default(uuid())
   fieldName            String                 @unique
   BusinessCaseFeedback BusinessCaseFeedback[]
 }
 
 model Goal {
-  id             String         @id
+  id             String         @id @default(uuid())
   name           String
   idOrganization String
   Organization   Organization   @relation(fields: [idOrganization], references: [id])
@@ -147,7 +147,7 @@ model Goal {
 }
 
 model KPIS {
-  id             String         @id
+  id             String         @id @default(uuid())
   idOrganization String
   name           String
   description    String?
@@ -158,7 +158,7 @@ model KPIS {
 }
 
 model Milestone {
-  id             String       @id
+  id             String       @id @default(uuid())
   idBusinessCase String
   name           String
   description    String?
@@ -170,7 +170,7 @@ model Milestone {
 }
 
 model Objective {
-  id             String         @id
+  id             String         @id @default(uuid())
   idOrganization String
   description    String
   Organization   Organization   @relation(fields: [idOrganization], references: [id])
@@ -178,7 +178,7 @@ model Objective {
 }
 
 model Organization {
-  id              String            @id
+  id              String            @id @default(uuid())
   name            String
   Actor           Actor[]
   BusinessCase    BusinessCase[]
@@ -193,20 +193,20 @@ model Organization {
 }
 
 model Portfolio {
-  id      String    @id
+  id      String    @id @default(uuid())
   name    String
   Project Project[]
 }
 
 model Project {
-  id           String         @id
+  id           String         @id @default(uuid())
   idPortfolio  String
   BusinessCase BusinessCase[]
   Portfolio    Portfolio      @relation(fields: [idPortfolio], references: [id])
 }
 
 model Risk {
-  id                 String       @id
+  id                 String       @id @default(uuid())
   idBusinessCase     String
   description        String
   impactLevel        Int
@@ -215,24 +215,25 @@ model Risk {
   BusinessCase       BusinessCase @relation(fields: [idBusinessCase], references: [id])
 }
 
-model Role {
-  id   String @id
-  name String @unique
-  User User[]
-}
+// model Role {
+//   id   String @id @default(uuid())
+//   name String @unique
+// User User[]
+// }
 
 model User {
-  id                   String                 @id
-  idRole               String
+  id                   String                 @id @default(uuid())
+  // idRole               String                 
   idOrganization       String?
   name                 String                 @unique
   email                String                 @unique
   password             String
-  isActive             Boolean
+  isActive             Boolean                @default(true)
+  createdAt            DateTime               @default(now())
   BusinessCase         BusinessCase[]
   BusinessCaseFeedback BusinessCaseFeedback[]
   Organization         Organization?          @relation(fields: [idOrganization], references: [id])
-  Role                 Role                   @relation(fields: [idRole], references: [id])
+  // Role                 Role                   @relation(fields: [idRole], references: [id])
 }
 
 enum CostType {

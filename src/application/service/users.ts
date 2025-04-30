@@ -25,4 +25,12 @@ export class UserService {
   async deleteUser(id: string) {
     return this.userRepository.delete(id);
   }
+
+  async loginUser(email: string, password: string) {
+    const user = await this.userRepository.findByEmail(email);
+    if (!user || user.password !== password) {
+      throw new Error("Invalid credentials");
+    }
+    return user;
+  }
 }

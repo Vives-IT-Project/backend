@@ -56,4 +56,18 @@ export class UserController {
     await this.userService.deleteUser(req.params.id);
     res.status(204).send();
   };
+
+  loginUser = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      res.status(400).json({ message: "Missing required fields" });
+      return;
+    }
+    try {
+      const user = await this.userService.loginUser(email, password);
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(401).json({ message: "Invalid credentials" });
+    }
+  };
 }

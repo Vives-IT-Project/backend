@@ -1,0 +1,35 @@
+@organizationId=021b3736-18d7-4d3c-85ce-da667afb7dd8
+
+### Create a new Organization
+POST http://localhost:3000/api/organization
+Content-Type: application/json
+
+{
+  "name": "The Other Great Organization"
+}
+
+###
+
+### Get all Organizations
+GET http://localhost:3000/api/organization
+
+###
+
+### Get a specific Organization by ID
+GET http://localhost:3000/api/organization/{{organizationId}}
+
+###
+
+### Update an Organization
+PUT http://localhost:3000/api/organization/{{organizationId}}
+Content-Type: application/json
+
+{
+  "name": "The Other Great Organization (updated)"
+}
+
+###
+
+### Delete an Organization
+DELETE http://localhost:3000/api/organization/{{organizationId}}
+

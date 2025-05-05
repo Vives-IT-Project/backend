@@ -31,7 +31,6 @@ export default class OrganizationController {
   createOrganization = async (req: Request, res: Response) => {
     try {
       const newOrganization = req.body;
-      console.log("ORG DATA", newOrganization);
       const createdOrganization =
         await this.organizationService.createOrganization(newOrganization);
       res.status(201).json(createdOrganization);

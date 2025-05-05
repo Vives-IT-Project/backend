@@ -1,0 +1,41 @@
+@organizationId=6ca1fd4e-ca51-4f43-acbb-caa13a3b2e0b
+@costCenter=4fd6f9cc-3ce9-43dd-be63-1d10609148c3
+
+### Create a new Cost Center
+POST http://localhost:3000/api/cost-center
+Content-Type: application/json
+
+{
+  "name": "More Serious Cost Center",
+  "idOrganization": "{{organizationId}}"
+}
+
+###
+
+### Get all Cost Centers
+GET http://localhost:3000/api/cost-center
+
+###
+
+### Get a specific Cost Center by ID
+GET http://localhost:3000/api/cost-center/{{costCenter}}
+
+###
+
+### Update a Cost Center
+PUT http://localhost:3000/api/cost-center/{{costCenter}}
+Content-Type: application/json
+
+{
+  "name": "Finish capstone project (updated)"
+}
+
+###
+
+### Delete a Domain
+DELETE http://localhost:3000/api/cost-center/{{costCenter}}
+
+
+### Get all Domains for a specific Organization
+GET http://localhost:3000/api/cost-center/organization/{{organizationId}}
+

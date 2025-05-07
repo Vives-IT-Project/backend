@@ -250,3 +250,18 @@ enum CostType {
   OPEX
   CAPEX
 }
+
+model Complexity {
+  id                   String                 @id @default(uuid())
+  name                 String                 
+  weight                Int                 
+}
+
+model BusinessCaseComplexity {
+  id                   String                 @id @default(uuid())
+  note                 Int                 
+  final_note                Int                 
+  idBusinessCase     String
+  idComplexity     String
+}
+

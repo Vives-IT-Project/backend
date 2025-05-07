@@ -39,15 +39,24 @@ model Benefit {
   BusinessCase    BusinessCase @relation(fields: [idBusinessCase], references: [id])
 }
 
+enum BusinessCaseStatus {
+  DRAFT
+  IN_REVIEW
+  APPROVED
+  REJECTED
+  ARCHIVED
+}
+
+
 model BusinessCase {
   id                   String                 @id @default(uuid())
   idOrganization       String
   createdBy            String
-  idTemplate           String
+  idTemplate           String?
   idProject            String
   name                 String
   description          String?
-  status               Int
+  status               BusinessCaseStatus
   version              Int
   isTemplate           Boolean
   Benefit              Benefit[]

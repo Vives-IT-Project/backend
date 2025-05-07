@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "BusinessCaseStatus" AS ENUM ('DRAFT', 'IN_REVIEW', 'APPROVED', 'REJECTED', 'ARCHIVED');
+
+-- CreateEnum
 CREATE TYPE "CostType" AS ENUM ('OPEX', 'CAPEX');
 
 -- CreateTable
@@ -40,11 +43,11 @@ CREATE TABLE "BusinessCase" (
     "id" TEXT NOT NULL,
     "idOrganization" TEXT NOT NULL,
     "createdBy" TEXT NOT NULL,
-    "idTemplate" TEXT NOT NULL,
+    "idTemplate" TEXT,
     "idProject" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "status" INTEGER NOT NULL,
+    "status" "BusinessCaseStatus" NOT NULL,
     "version" INTEGER NOT NULL,
     "isTemplate" BOOLEAN NOT NULL,
 
@@ -213,22 +216,14 @@ CREATE TABLE "Risk" (
 );
 
 -- CreateTable
-CREATE TABLE "Role" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-
-    CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "idRole" TEXT NOT NULL,
     "idOrganization" TEXT,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "isActive" BOOLEAN NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -294,9 +289,6 @@ CREATE UNIQUE INDEX "CostAllocation_description_key" ON "CostAllocation"("descri
 
 -- CreateIndex
 CREATE UNIQUE INDEX "FeedbackTarget_fieldName_key" ON "FeedbackTarget"("fieldName");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_name_key" ON "User"("name");
@@ -393,9 +385,6 @@ ALTER TABLE "Risk" ADD CONSTRAINT "Risk_idBusinessCase_fkey" FOREIGN KEY ("idBus
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_idOrganization_fkey" FOREIGN KEY ("idOrganization") REFERENCES "Organization"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_idRole_fkey" FOREIGN KEY ("idRole") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_BusinessCaseActors" ADD CONSTRAINT "_BusinessCaseActors_A_fkey" FOREIGN KEY ("A") REFERENCES "Actor"("id") ON DELETE CASCADE ON UPDATE CASCADE;

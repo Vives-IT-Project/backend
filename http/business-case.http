@@ -1,0 +1,44 @@
+@organizationId=6ca1fd4e-ca51-4f43-acbb-caa13a3b2e0b
+@businessCaseId=5090e817-80b4-42ef-8c23-ad654d86aba6
+@projectId=8f9997c7-1f84-492a-9f44-b80e89dfd678
+
+### Create a new Business Case
+POST http://localhost:3000/api/business-case
+Content-Type: application/json
+
+{
+  "name": "Business First Episode",
+  "description": "This is the entry edition of the business case.",
+  "idOrganization": "{{organizationId}}",
+  "idProject":"{{projectId}}",
+}
+
+###
+
+### Get all Business Cases
+GET http://localhost:3000/api/domain
+
+###
+
+### Get a specific Business Case by ID
+GET http://localhost:3000/api/domain/{{businessCaseId}}
+
+###
+
+### Update a Business Case
+PUT http://localhost:3000/api/domain/{{businessCaseId}}
+Content-Type: application/json
+
+{
+  "name": "Finish capstone project (updated)"
+}
+
+###
+
+### Delete a Business Case
+DELETE http://localhost:3000/api/domain/{{businessCaseId}}
+
+
+### Get all Business Cases for a specific Organization
+GET http://localhost:3000/api/domain/organization/{{organizationId}}
+

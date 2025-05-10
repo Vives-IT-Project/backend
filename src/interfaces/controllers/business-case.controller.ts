@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
 import BusinessCaseService from "../../application/service/business-case.service";
+import { UserService } from "../../application/service/users.service";
 
 export default class BusinessCaseController {
   private businessCaseService: BusinessCaseService;
-  constructor(private service: BusinessCaseService) {
-    this.businessCaseService = service;
+  private userService: UserService;
+  constructor(bcService: BusinessCaseService, userService: UserService) {
+    this.businessCaseService = bcService;
+    this.userService = userService;
   }
 
   getAllBusinessCases = async (_req: Request, res: Response) => {
@@ -29,13 +32,37 @@ export default class BusinessCaseController {
 
   createBusinessCase = async (req: Request, res: Response) => {
     try {
-      const { data } = req.body;
+      const {
+        name,
+        description,
+        idOrganization,
+        idProject,
+        isTemplate,
+        idTemplate,
+        createdBy,
+      } = req.body;
+      console.log("data", name);
+
+      const user = await this.userService.getUserById(createdBy);
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
 
       const createdBusinessCase =
-        await this.businessCaseService.createBusinessCase(data);
+        await this.businessCaseService.createBusinessCase({
+          name,
+          description,
+          idOrganization,
+          idProject,
+          isTemplate,
+          idTemplate,
+          createdBy,
+        });
       res.status(201).json(createdBusinessCase);
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+    } catch (error: any) {
+      console.error("Error creating business case", error);
+      res.status(500).json({ message: error.message });
     }
   };
 
@@ -67,8 +94,8 @@ export default class BusinessCaseController {
       } else {
         res.status(204).send();
       }
-    } catch (error) {
-      res.status(500).json({ message: "Internal server error" });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   };
 

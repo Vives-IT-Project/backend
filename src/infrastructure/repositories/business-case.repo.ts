@@ -30,4 +30,10 @@ export default class BusinessCaseRepository {
       where: { Organization: { id: idOrganization } },
     });
   }
+
+  async findByTemplateId(idTemplate: string): Promise<BusinessCase[]> {
+    return prisma.businessCase.findMany({
+      where: { idTemplate },
+    });
+  }
 }

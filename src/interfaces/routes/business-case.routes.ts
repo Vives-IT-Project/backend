@@ -1,10 +1,12 @@
 import { Router } from "express";
 import BusinessCaseController from "../controllers/business-case.controller";
 import BusinessCaseService from "../../application/service/business-case.service";
+import { UserService } from "../../application/service/users.service";
 
 const router = Router();
 const businessCaseController = new BusinessCaseController(
   new BusinessCaseService(),
+  new UserService(),
 );
 
 router.get("/", businessCaseController.getAllBusinessCases);

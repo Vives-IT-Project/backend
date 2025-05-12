@@ -22,6 +22,20 @@ export default class BusinessCaseController {
     return;
   };
 
+  getTemplateDataById = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const template = await this.businessCaseService.getTemplateDataById(id);
+      if (!template) {
+        res.status(404).json({ message: "Template not found" });
+      } else {
+        res.json(template);
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
   getBusinessCaseById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;

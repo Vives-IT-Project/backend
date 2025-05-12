@@ -11,6 +11,7 @@ const businessCaseController = new BusinessCaseController(
 
 router.get("/", businessCaseController.getAllBusinessCases);
 router.get("/templates", businessCaseController.getAllTemplates);
+router.get("/templates/:id", businessCaseController.getTemplateDataById);
 router.get("/:id", businessCaseController.getBusinessCaseById);
 router.post("/", businessCaseController.createBusinessCase);
 router.put("/:id", businessCaseController.updateBusinessCase);

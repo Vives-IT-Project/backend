@@ -4,7 +4,7 @@
 #father mckenzie
 @userId=2902f1f9-06c4-4982-9177-a1e00cf2a33e
 
-@templateId=6f237818-cf10-4b99-ad07-2d6486e99413
+@templateId=186f29e2-fc13-49e0-b1c2-55dd3e0d623b
 
 ### Create a new Business Case TEMPLATE
 POST http://localhost:3000/api/business-case
@@ -39,6 +39,16 @@ Content-Type: application/json
 
 ### Get all Business Cases
 GET http://localhost:3000/api/business-case
+
+###
+
+### Get all Templates
+GET http://localhost:3000/api/business-case/templates
+
+###
+
+### Get template data with all it's related data
+GET http://localhost:3000/api/business-case/templates/{{templateId}}
 
 ###
 

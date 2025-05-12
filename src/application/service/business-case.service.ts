@@ -16,6 +16,15 @@ export default class BusinessCaseService {
     }));
   }
 
+  async getTemplateDataById(id: string) {
+    const template =
+      await this.businessCaseRepository.getFullTemplateDataById(id);
+    if (!template) {
+      throw new Error("Template not found");
+    }
+    return template;
+  }
+
   async getBusinessCaseById(id: string) {
     return this.businessCaseRepository.findById(id);
   }

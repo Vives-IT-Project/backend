@@ -13,6 +13,19 @@ export default class BusinessCaseRepository {
     });
   }
 
+  async getFullTemplateDataById(id: string): Promise<BusinessCase | null> {
+    return prisma.businessCase.findUnique({
+      where: { id },
+      include: {
+        User: { select: { name: true } },
+        Domain: true,
+        EvaluationTopic: true,
+        Goal: true,
+        CostCenter: true,
+      },
+    });
+  }
+
   async findById(id: string): Promise<BusinessCase | null> {
     return prisma.businessCase.findUnique({ where: { id } });
   }

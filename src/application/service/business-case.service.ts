@@ -1,4 +1,4 @@
-import { BusinessCaseStatus } from "@prisma/client";
+import { BusinessCase, BusinessCaseStatus } from "@prisma/client";
 import BusinessCaseRepository from "../../infrastructure/repositories/business-case.repo";
 
 export default class BusinessCaseService {
@@ -6,6 +6,14 @@ export default class BusinessCaseService {
 
   async getAllBusinessCases() {
     return this.businessCaseRepository.findAll();
+  }
+
+  async getAllTemplates() {
+    const templates = await this.businessCaseRepository.findAllTemplates();
+    return templates.map((template: any) => ({
+      ...template,
+      createdBy: template.User.name,
+    }));
   }
 
   async getBusinessCaseById(id: string) {

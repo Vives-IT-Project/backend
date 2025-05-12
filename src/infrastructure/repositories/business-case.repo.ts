@@ -1,9 +1,16 @@
-import { BusinessCase } from "@prisma/client";
+import { BusinessCase, User } from "@prisma/client";
 import { prisma } from "../../utils/prisma";
 
 export default class BusinessCaseRepository {
   async findAll(): Promise<BusinessCase[]> {
     return prisma.businessCase.findMany();
+  }
+
+  async findAllTemplates(): Promise<BusinessCase[]> {
+    return prisma.businessCase.findMany({
+      where: { isTemplate: true },
+      include: { User: { select: { name: true } } },
+    });
   }
 
   async findById(id: string): Promise<BusinessCase | null> {

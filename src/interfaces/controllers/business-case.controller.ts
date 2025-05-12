@@ -16,6 +16,12 @@ export default class BusinessCaseController {
     return;
   };
 
+  getAllTemplates = async (_req: Request, res: Response) => {
+    const templates = await this.businessCaseService.getAllTemplates();
+    res.json(templates);
+    return;
+  };
+
   getBusinessCaseById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;

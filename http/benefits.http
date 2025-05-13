@@ -1,0 +1,47 @@
+@organizationId=56336201-b466-4168-84ca-382a699cce63
+@idBusinessCase=fe8358de-f1a9-4147-b4d7-5456d5d1f4d0
+@idBenefit=35679eb5-7986-480e-b675-9385124dbdf9
+@idAllocation=a91ae45d-e06e-4475-b366-cda877735833
+
+### Create a new Milestone
+POST http://localhost:3000/api/benefit
+Content-Type: application/json
+
+{
+  "description": "Big Benefit",
+  "idBusinessCase": "{{idBusinessCase}}",
+  "idAllocation": "{{idAllocation}}",
+  "estimatedActual": true,
+  "type": "Qualitative",
+  "amount": 100
+}
+
+###
+
+### Get all Milestones
+GET http://localhost:3000/api/benefit
+
+###
+
+### Get a specific Milestone by ID
+GET http://localhost:3000/api/benefit/{{idBenefit}}
+
+###
+
+### Update a Milestone
+PUT http://localhost:3000/api/benefit/{{idBenefit}}
+Content-Type: application/json
+
+{
+  "description": "Manuel, homem sábio e profundo"
+}
+
+###
+
+### Delete a Milestone
+DELETE http://localhost:3000/api/benefit/{{idBenefit}}
+
+
+### Get all Milestones for a specific Business Case
+GET http://localhost:3000/api/benefit/business-case/{{idBusinessCase}}
+

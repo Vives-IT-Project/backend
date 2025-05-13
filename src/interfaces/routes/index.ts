@@ -9,6 +9,7 @@ import businessCaseRoutes from "./business-case.routes";
 import actorRoutes from "./actor.routes";
 import milestoneRoutes from "./milestone.routes";
 import riskRoutes from "./risk.routes";
+import benefitRoutes from "./benefit.routes";
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use("/business-case", businessCaseRoutes);
 router.use("/actor", actorRoutes);
 router.use("/milestone", milestoneRoutes);
 router.use("/risk", riskRoutes);
+router.use("/benefit", benefitRoutes);
 
 export default router;

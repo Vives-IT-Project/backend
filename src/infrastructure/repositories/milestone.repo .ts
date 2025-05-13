@@ -10,8 +10,33 @@ export class MilestoneRepository {
     return prisma.milestone.findUnique({ where: { id } });
   }
 
+  transformMilestone(milestone: Milestone): Milestone {
+    const milestonePriority = {
+      Low: 0,
+      Medium: 1,
+      High: 2,
+      Urgent: 3,
+    };
+    milestone.priority =
+      milestonePriority[
+        milestone.priority as unknown as keyof typeof milestonePriority
+      ];
+
+    const milestoneStatus = {
+      "Not Started": 0,
+      "In Progress": 1,
+      Completed: 2,
+    };
+    milestone.status =
+      milestoneStatus[
+        milestone.status as unknown as keyof typeof milestoneStatus
+      ];
+    return milestone;
+  }
+
   async create(milestone: Milestone): Promise<Milestone> {
     console.log("Creating milestone:", milestone);
+    milestone = this.transformMilestone(milestone);
     return prisma.milestone.create({ data: milestone });
   }
 
@@ -19,6 +44,8 @@ export class MilestoneRepository {
     id: string,
     milestone: Partial<Milestone>,
   ): Promise<Milestone | null> {
+    milestone = this.transformMilestone(milestone as Milestone);
+
     return prisma.milestone.update({ where: { id }, data: milestone });
   }
 

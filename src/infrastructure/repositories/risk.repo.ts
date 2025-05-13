@@ -11,6 +11,25 @@ export class RiskRepository {
   }
 
   transformRisk(risk: Risk): Risk {
+    const riskImpactLevel = {
+      Low: 0,
+      Medium: 1,
+      High: 2,
+    };
+    risk.impactLevel =
+      riskImpactLevel[
+        risk.impactLevel as unknown as keyof typeof riskImpactLevel
+      ];
+
+    const riskProbability = {
+      Low: 0,
+      Medium: 1,
+      High: 2,
+    };
+    risk.probability =
+      riskProbability[
+        risk.probability as unknown as keyof typeof riskProbability
+      ];
     return risk;
   }
 

@@ -31,7 +31,29 @@ export default class BusinessCaseRepository {
   }
 
   async create(data: any): Promise<BusinessCase> {
-    return prisma.businessCase.create({ data });
+    const domains = data.domains.map((domain: any) => ({ id: domain }));
+    const goals = data.goals.map((goal: any) => ({ id: goal }));
+    const costCenters = data.costCenters.map((costCenter: any) => ({
+      id: costCenter,
+    }));
+    const evaluationTopics = data.evaluationTopics.map(
+      (evaluationTopic: any) => ({ id: evaluationTopic }),
+    );
+
+    delete data.domains;
+    delete data.goals;
+    delete data.costCenters;
+    delete data.evaluationTopics;
+
+    return prisma.businessCase.create({
+      data: {
+        ...data,
+        Domain: { connect: domains },
+        Goal: { connect: goals },
+        EvaluationTopic: { connect: evaluationTopics },
+        CostCenter: { connect: costCenters },
+      },
+    });
   }
 
   async update(

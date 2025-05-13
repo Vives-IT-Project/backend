@@ -60,8 +60,11 @@ export default class BusinessCaseController {
         isTemplate,
         idTemplate,
         createdBy,
+        domains,
+        evaluationTopics,
+        goals,
+        costCenters,
       } = req.body;
-      console.log("data", name);
 
       const user = await this.userService.getUserById(createdBy);
       if (!user) {
@@ -78,6 +81,10 @@ export default class BusinessCaseController {
           isTemplate,
           idTemplate,
           createdBy,
+          domains,
+          evaluationTopics,
+          goals,
+          costCenters,
         });
       res.status(201).json(createdBusinessCase);
     } catch (error: any) {

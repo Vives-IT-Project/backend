@@ -8,6 +8,7 @@ import costCenterRoutes from "./cost-center.routes";
 import businessCaseRoutes from "./business-case.routes";
 import actorRoutes from "./actor.routes";
 import milestoneRoutes from "./milestone.routes";
+import riskRoutes from "./risk.routes";
 
 const router = Router();
 
@@ -24,5 +25,6 @@ router.use("/cost-center", costCenterRoutes);
 router.use("/business-case", businessCaseRoutes);
 router.use("/actor", actorRoutes);
 router.use("/milestone", milestoneRoutes);
+router.use("/risk", riskRoutes);
 
 export default router;

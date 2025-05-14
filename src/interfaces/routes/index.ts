@@ -1,4 +1,7 @@
 import { Router } from "express";
+import userRoutes from "./users";
+import complexityRoutes from "./complexities.routes";
+import businessCaseComplexityRoutes from "./business-case-complexities.routes"
 import userRoutes from "./users.routes";
 import organizationRoutes from "./organizations.routes";
 import goalRoutes from "./goals.routes";
@@ -18,6 +21,8 @@ router.get("/health", (req, res) => {
 });
 
 router.use("/users", userRoutes);
+router.use("/complexity", complexityRoutes);
+router.use("/business-case-complexity", businessCaseComplexityRoutes);
 router.use("/organization", organizationRoutes);
 router.use("/goals", goalRoutes);
 router.use("/domain", domainRoutes);

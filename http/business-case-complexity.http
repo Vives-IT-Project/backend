@@ -1,0 +1,44 @@
+@complexityId=09ad981f-9b06-42cc-b5db-5beeb22efe80
+@businessCaseId=6f237818-cf10-4b99-ad07-2d6486e99413
+@businessCaseComplexityId=e7082f62-4f6e-46e9-bca2-f8d2660e0868
+
+# "note" INTEGER NOT NULL,
+#     "final_note" INTEGER NOT NULL,
+#     "idBusinessCase" TEXT NOT NULL,
+#     "idComplexity" TEXT NOT NULL,
+
+### Create a new Business Case Complexity
+POST http://localhost:3000/api/business-case-complexity
+Content-Type: application/json
+
+{
+  "note": 10,
+  "final_note": 10,
+  "idBusinessCase": "{{businessCaseId}}",
+  "idComplexity": "{{businessCaseComplexityId}}"
+}
+
+###
+
+### Get all Business Case Complexity
+GET http://localhost:3000/api/business-case-complexity
+
+###
+
+### Get a specific Business Case Complexity by ID
+GET http://localhost:3000/api/business-case-complexity/{{businessCaseComplexityId}}
+
+###
+
+### Update an Business Case Complexity
+PUT http://localhost:3000/api/business-case-complexity/{{businessCaseComplexityId}}
+Content-Type: application/json
+
+{
+  "note": 0
+}
+
+###
+
+### Delete an Business Case Complexity
+DELETE http://localhost:3000/api/business-case-complexity/{{businessCaseComplexityId}}

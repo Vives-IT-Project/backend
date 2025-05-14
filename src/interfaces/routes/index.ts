@@ -1,5 +1,7 @@
 import { Router } from "express";
 import userRoutes from "./users";
+import complexityRoutes from "./complexities.routes";
+import businessCaseComplexityRoutes from "./business-case-complexities.routes"
 
 const router = Router();
 
@@ -8,5 +10,7 @@ router.get("/health", (req, res) => {
 });
 
 router.use("/users", userRoutes);
+router.use("/complexity", complexityRoutes);
+router.use("/business-case-complexity", businessCaseComplexityRoutes);
 
 export default router;

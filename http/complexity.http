@@ -1,0 +1,35 @@
+@complexityId=09ad981f-9b06-42cc-b5db-5beeb22efe80
+
+### Create a new Complexity
+POST http://localhost:3000/api/complexity
+Content-Type: application/json
+
+{
+  "name": "Complexity No.4",
+  "weight": 10
+}
+
+###
+
+### Get all Complexity
+GET http://localhost:3000/api/complexity
+
+###
+
+### Get a specific Complexity by ID
+GET http://localhost:3000/api/complexity/{{complexityId}}
+
+###
+
+### Update an Complexity
+PUT http://localhost:3000/api/complexity/{{complexityId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Complexity"
+}
+
+###
+
+### Delete an Complexity
+DELETE http://localhost:3000/api/complexity/{{complexityId}}

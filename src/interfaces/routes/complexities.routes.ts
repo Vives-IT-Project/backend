@@ -10,6 +10,6 @@ router.get("/:id", complexityController.getComplexityById);
 router.post("/", complexityController.createComplexity);
 router.put("/:id", complexityController.updateComplexity);
 router.delete("/:id", complexityController.deleteComplexity);
-
+router.get("/get-final-complexity", complexityController.getFinalComplexity);
 
 export default router;

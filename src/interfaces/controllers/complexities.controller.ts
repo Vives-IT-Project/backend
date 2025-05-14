@@ -56,4 +56,27 @@ export class ComplexityController {
     res.status(204).send();
   };
 
+  getFirstComplexity =  () => {
+    return 50
+  }
+
+
+  getSecondComplexity =  () => {
+    const teamSize = 5;
+    const roles = 3; 
+    const allocation = 10; 
+
+    const roleComplexity = roles * (teamSize -1);
+    const communicationComplexity = (teamSize*(teamSize -1 )) / 2;
+    const simplicityFactor = 1/allocation;
+
+    const complexity = (roleComplexity + communicationComplexity) / simplicityFactor
+    return complexity;
+  }
+
+  getFinalComplexity = async (req: Request, res:Response) => {
+    console.log();
+    const time = 30;
+    const complexity = ((this.getFirstComplexity() * 70) + (this.getSecondComplexity() * 30)) / time;
+  }
 }

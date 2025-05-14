@@ -24,4 +24,10 @@ export class BusinessCaseComplexityRepository {
   async delete(id: string): Promise<void> {
     await prisma.businessCaseComplexity.delete({ where: { id } });
   }
+
+  // async findByBusinessCaseId(idBusinessCase: string): Promise<BusinessCaseComplexity[]> {
+  //   return prisma.businessCaseComplexity.findMany({
+  //     where: { BusinessCase: { id: idBusinessCase } },
+  //   });
+  // }
 }

@@ -1,0 +1,46 @@
+@organizationId=56336201-b466-4168-84ca-382a699cce63
+@idBusinessCase=fe8358de-f1a9-4147-b4d7-5456d5d1f4d0
+@idMilestone=7547b00b-bd8b-444b-bc80-06e539893008
+
+### Create a new Milestone
+POST http://localhost:3000/api/milestone
+Content-Type: application/json
+
+{
+  "name": "More Serious Cost Center",
+  "idBusinessCase": "{{idBusinessCase}}",
+  "description": "A very important milestone.",
+  "limitDate": "2023-10-01T00:00:00.000Z",
+  "status": 1,
+  "priority": 1
+}
+
+###
+
+### Get all Milestones
+GET http://localhost:3000/api/milestone
+
+###
+
+### Get a specific Milestone by ID
+GET http://localhost:3000/api/milestone/{{idMilestone}}
+
+###
+
+### Update a Milestone
+PUT http://localhost:3000/api/milestone/{{idMilestone}}
+Content-Type: application/json
+
+{
+  "name": "Manuel, homem sábio e profundo"
+}
+
+###
+
+### Delete a Milestone
+DELETE http://localhost:3000/api/milestone/{{idMilestone}}
+
+
+### Get all Milestones for a specific Business Case
+GET http://localhost:3000/api/milestone/business-case/{{idBusinessCase}}
+

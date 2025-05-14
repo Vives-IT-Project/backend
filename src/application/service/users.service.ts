@@ -1,4 +1,4 @@
-import { UserRepository } from "../../infrastructure/repositories/users";
+import { UserRepository } from "../../infrastructure/repositories/users.repo";
 
 export class UserService {
   private userRepository = new UserRepository();

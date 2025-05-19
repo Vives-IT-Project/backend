@@ -1,0 +1,43 @@
+@organizationId=6ca1fd4e-ca51-4f43-acbb-caa13a3b2e0b
+@topicId=50aafdde-8416-419a-9690-d414f58c26b5
+
+### Create a new Evaluation Topic
+POST http://localhost:3000/api/evaluation-topics
+Content-Type: application/json
+
+{
+  "name": "My new Evaluation Topic",
+  "description": "This is a new Evaluation Topic",
+  "idOrganization": "{{organizationId}}"
+}
+
+###
+
+### Get all Evaluation Topics
+GET http://localhost:3000/api/evaluation-topics
+
+###
+
+### Get a specific Domain by ID
+GET http://localhost:3000/api/evaluation-topics/{{topicId}}
+
+###
+
+### Update an Evaluation Topic
+PUT http://localhost:3000/api/evaluation-topics/{{topicId}}
+Content-Type: application/json
+
+{
+  "name": "Whatever it was before(updated)",
+  "description": "This is a new Evaluation Topic (updated)"
+}
+
+###
+
+### Delete an Evaluation Topic
+DELETE http://localhost:3000/api/evaluation-topics/{{topicId}}
+
+
+### Get all Evaluation Topics for a specific Organization
+GET http://localhost:3000/api/evaluation-topics/organization/{{organizationId}}
+

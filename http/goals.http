@@ -1,0 +1,41 @@
+@organizationId=6ca1fd4e-ca51-4f43-acbb-caa13a3b2e0b
+@goalId=e1e9e285-c107-4918-a5b6-0e949abc6902
+
+### Create a new Goal
+POST http://localhost:3000/api/goals
+Content-Type: application/json
+
+{
+  "name": "Goal from other organization",
+  "idOrganization": "{{organizationId}}"
+}
+
+###
+
+### Get all Goals
+GET http://localhost:3000/api/goals
+
+###
+
+### Get a specific Goal by ID
+GET http://localhost:3000/api/goals/{{goalId}}
+
+###
+
+### Update a Goal
+PUT http://localhost:3000/api/goals/{{goalId}}
+Content-Type: application/json
+
+{
+  "name": "Finish capstone project (updated)"
+}
+
+###
+
+### Delete a Goal
+DELETE http://localhost:3000/api/goals/{{goalId}}
+
+
+### Get all Goals for a specific Organization
+GET http://localhost:3000/api/goals/organization/{{organizationId}}
+

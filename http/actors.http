@@ -1,0 +1,43 @@
+@organizationId=56336201-b466-4168-84ca-382a699cce63
+@idActor=b14e6908-b1f1-436a-a0ab-4d0776a17c6e
+
+### Create a new Cost Center
+POST http://localhost:3000/api/actor
+Content-Type: application/json
+
+{
+  "name": "More Serious Cost Center",
+  "idOrganization": "{{organizationId}}",
+  "description": "This is a more serious cost center",
+  "type": 1
+}
+
+###
+
+### Get all Actors
+GET http://localhost:3000/api/actor
+
+###
+
+### Get a specific Cost Center by ID
+GET http://localhost:3000/api/actor/{{idActor}}
+
+###
+
+### Update a Cost Center
+PUT http://localhost:3000/api/actor/{{idActor}}
+Content-Type: application/json
+
+{
+  "name": "Manuel, homem sábio e profundo"
+}
+
+###
+
+### Delete a Domain
+DELETE http://localhost:3000/api/actor/{{idActor}}
+
+
+### Get all Domains for a specific Organization
+GET http://localhost:3000/api/actor/organization/{{organizationId}}
+

@@ -1,0 +1,47 @@
+@organizationId=56336201-b466-4168-84ca-382a699cce63
+@idBusinessCase=fe8358de-f1a9-4147-b4d7-5456d5d1f4d0
+@idRisk=f45978ae-1a7b-41d8-98fd-7f4be55cb3fc
+
+### Create a new Milestone
+POST http://localhost:3000/api/risk
+Content-Type: application/json
+
+{
+  "idBusinessCase": "{{idBusinessCase}}",
+  "description": "Very critical risk",
+  "impactLevel": 1,
+  "probability": 0.8,
+  "mitigationStrategy": "Mitigation strategy"
+}
+
+###
+
+### Get all Milestones
+GET http://localhost:3000/api/risk
+
+###
+
+### Get a specific Milestone by ID
+GET http://localhost:3000/api/risk/{{idRisk}}
+
+###
+
+### Update a Milestone
+PUT http://localhost:3000/api/risk/{{idRisk}}
+Content-Type: application/json
+
+{
+  "description": "Even more critical risk",
+  "impactLevel": 2,
+  "probability": 0.9
+}
+
+###
+
+### Delete a Milestone
+DELETE http://localhost:3000/api/risk/{{idRisk}}
+
+
+### Get all Milestones for a specific Business Case
+GET http://localhost:3000/api/risk/business-case/{{idBusinessCase}}
+

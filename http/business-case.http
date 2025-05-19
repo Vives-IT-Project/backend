@@ -1,0 +1,76 @@
+@organizationId=56336201-b466-4168-84ca-382a699cce63
+@businessCaseId=6f237818-cf10-4b99-ad07-2d6486e99413
+@projectId=9add0321-a12e-4c1a-b635-6628d0206b20
+#father mckenzie
+@userId=2902f1f9-06c4-4982-9177-a1e00cf2a33e
+
+@templateId=186f29e2-fc13-49e0-b1c2-55dd3e0d623b
+
+### Create a new Business Case TEMPLATE
+POST http://localhost:3000/api/business-case
+Content-Type: application/json
+
+{
+  "name": "The Template",
+  "description": "A definitive business case template.",
+  "idOrganization": "{{organizationId}}",
+  "idProject":"{{projectId}}",
+  "isTemplate": true,
+  "createdBy": "{{userId}}"
+}
+
+###
+
+### Create a new Business Case INSTANCE
+POST http://localhost:3000/api/business-case
+Content-Type: application/json
+
+{
+  "name": "The Business Case",
+  "description": "Definitive business case ever created.",
+  "idOrganization": "{{organizationId}}",
+  "idProject":"{{projectId}}",
+  "isTemplate": false,
+  "createdBy": "{{userId}}",
+  "idTemplate": "{{templateId}}"
+}
+
+###
+
+### Get all Business Cases
+GET http://localhost:3000/api/business-case
+
+###
+
+### Get all Templates
+GET http://localhost:3000/api/business-case/templates
+
+###
+
+### Get template data with all it's related data
+GET http://localhost:3000/api/business-case/templates/{{templateId}}
+
+###
+
+### Get a specific Business Case by ID
+GET http://localhost:3000/api/business-case/{{businessCaseId}}
+
+###
+
+### Update a Business Case
+PUT http://localhost:3000/api/business-case/{{businessCaseId}}
+Content-Type: application/json
+
+{
+  "name": "The Business Case"
+}
+
+###
+
+### Delete a Business Case
+DELETE http://localhost:3000/api/business-case/{{businessCaseId}}
+
+
+### Get all Business Cases for a specific Organization
+GET http://localhost:3000/api/business-case/organization/{{organizationId}}
+
